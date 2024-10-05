@@ -18,6 +18,7 @@ class Owner(models.Model):
 class Boat(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название лодки', **NULLABLE)
     year = models.PositiveSmallIntegerField(**NULLABLE, verbose_name='Год выпуска')
+    price = models.IntegerField(**NULLABLE, verbose_name='Цена')
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, verbose_name='Владелец')
 
     def __str__(self):
@@ -31,11 +32,11 @@ class Boat(models.Model):
 class BoatHistory(models.Model):
     boat = models.ForeignKey(Boat, on_delete=models.CASCADE, verbose_name='Лодка')
     owner = models.ForeignKey(Owner, on_delete=models.SET_NULL, verbose_name='Владелец', **NULLABLE)
-    star_year = models.PositiveSmallIntegerField(**NULLABLE, verbose_name='Владел с')
+    start_year = models.PositiveSmallIntegerField(**NULLABLE, verbose_name='Владел с')
     stop_year = models.PositiveSmallIntegerField(**NULLABLE, verbose_name='Владел по')
 
     def __str__(self):
-        return f'{self.boat} ({self.star_year} - {self.stop_year})'
+        return f'{self.boat} ({self.start_year} - {self.stop_year})'
 
     class Meta:
         verbose_name = 'История владения лодкой'
